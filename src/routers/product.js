@@ -24,8 +24,9 @@ const upload = multer({
 })
 
 Router
-.get('/', auth.verify, productController.getProduct)
+.get('/', productController.getProduct)
 .get('/:id_product', productController.productDetail)
+// .post('/', productController.insertProduct)
 .post('/', upload.single('image'), productController.insertProduct)
 .patch('/:id_product', productController.updateProduct)
 .delete('/:id_product', productController.deleteProduct)

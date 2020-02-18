@@ -40,14 +40,14 @@ module.exports = {
           })
     },
     insertProduct: (req, res) => {
-      const {name, description, price, stock, id_category} = req.body;
+      const {name, description, price, stock, image, id_category} = req.body;
       const data = {
         name,
         description,
         price,
         stock,
-        image: `http://localhost:4003/uploads/${req.file.filename}`,
-        id_category
+        image:image,
+        id_category       
       }
       productModel.insertProduct(data)
         .then((result) => {
@@ -55,6 +55,7 @@ module.exports = {
         })
         .catch(err=>{
             miscHelper.response(res, {}, res.status, err)
+            console.log (err)
           })
     },
     updateProduct: (req, res) => {

@@ -6,7 +6,6 @@ module.exports = {
       const asc = req.query.asc
         categoryModel.getCategory(sortBy, asc)
         .then((result)=>{
-          console.log(result)
           miscHelper.response(res, result)
         })
         .catch(err=>{

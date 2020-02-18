@@ -1,6 +1,6 @@
 const connection = require('../configs/db')
 module.exports = {
-    getProduct: (name = "", description = "", sortBy = "id", asc = 1, page = 1, perPage = 5) =>{
+    getProduct: (name = "", description = "", sortBy = "id", asc = 1, page = 1, perPage = 20) =>{
       return new Promise((resolve, reject)=>{
         if(name || description || sortBy || page || perPage){
           const match = {}          
@@ -15,8 +15,8 @@ module.exports = {
           match.perPage = perPage
           match.limit = 100
           const prevPage = parseInt(parseInt(page)-1)
-          match.previous_page = page>0? "http://localhost:4003/api/v1/product?page="+ prevPage: null
-          match.next_page = "http://localhost:4003/api/v1/product?page="+ parseInt(parseInt(page)+1)  
+          match.previous_page = page>0? "http://localhost:4004/api/v1/product?page="+ prevPage: null
+          match.next_page = "http://localhost:4004/api/v1/product?page="+ parseInt(parseInt(page)+1)  
           connection.query("SELECT p.*, c.name as category_name FROM product as p LEFT JOIN category as c ON p.id_category = c.id WHERE p.name LIKE '%"+name+"%' AND description LIKE '%"+description+"%'" + " ORDER BY "+ sortBy + " " + order + " LIMIT ?,?",[parseInt(start), parseInt(perPage)], 
           (err, result)=>{
             if(!err){
